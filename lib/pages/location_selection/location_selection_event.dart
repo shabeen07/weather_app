@@ -1,4 +1,11 @@
 part of 'location_selection_bloc.dart';
 
-@immutable
-sealed class LocationSelectionEvent {}
+class LocationSelectionEvent {
+
+}
+
+class FetchWeatherEvent extends LocationSelectionEvent{
+  final String locationName;
+
+  FetchWeatherEvent(this.locationName);
+}
