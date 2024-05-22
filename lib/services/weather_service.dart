@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:weather_app/models/weather_error_result.dart';
+
 import '../models/weather_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,12 +14,14 @@ class WeatherService {
   Future<WeatherModel> getWeather(String location) async {
     final response =
         await http.get(Uri.parse("${baseURL}key=$apiKey&q=$location"));
+    Map<String,dynamic> result = jsonDecode(response.body);
 
     /// if response is success ,then return [WeatherModel]
     if (response.statusCode == 200) {
-      return WeatherModel.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception(response.body);
+      return WeatherModel.fromJson(result);
+    }else{
+      /// throw weather result error
+      throw WeatherResultError.fromJson(result);
     }
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/models/weather_model.dart';
-import 'package:weather_app/pages/location_selection/location_selection.dart';
-import 'package:weather_app/pages/location_selection/location_selection_bloc.dart';
-import 'package:weather_app/pages/weather_display/weather_display.dart';
-import 'package:weather_app/pages/weather_display/weather_display_bloc.dart';
+import 'package:weather_app/screens/location_selection/location_selection.dart';
+import 'package:weather_app/screens/location_selection/location_selection_bloc.dart';
+import 'package:weather_app/screens/weather_display/weather_display.dart';
+import 'package:weather_app/screens/weather_display/weather_display_bloc.dart';
 import 'package:weather_app/routes/routes.dart';
 import 'package:weather_app/services/weather_service.dart';
 import 'package:weather_app/theme/light_mode.dart';

@@ -106,13 +106,13 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
                   style: Theme.of(context).textTheme.titleLarge)
               : const SizedBox(),
           Text(
-            (currentModel.tempC ?? 0).toString(),
+            "${currentModel.tempC ?? 0} °C",
             style: Theme.of(context)
                 .textTheme
-                .headlineMedium
+                .headlineLarge
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
-          Text('Feels Like C: ${currentModel.feelsLikeC ?? 0}'),
+          Text('Feels Like: ${currentModel.feelsLikeC ?? 0} °C'),
           const SizedBox(height: 32,),
           Row(
             children: [
@@ -127,7 +127,7 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
                       padding: const EdgeInsets.all(12),
                       child: Column(
                         children: [
-                          const Icon(Icons.wind_power,size: 24,),
+                          Icon(Icons.wind_power,size: 24,color: Theme.of(context).colorScheme.primary),
                           const SizedBox(height: 8,),
                           const Text('Wind'),
                           const SizedBox(height: 4,),
@@ -149,7 +149,7 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
                       padding: const EdgeInsets.all(12),
                       child: Column(
                         children: [
-                          const Icon(Icons.water_drop,size: 24,),
+                          Icon(Icons.water_drop,size: 24,color: Theme.of(context).colorScheme.primary,),
                           const SizedBox(height: 8,),
                           const Text('Humidity'),
                           const SizedBox(height: 4,),
