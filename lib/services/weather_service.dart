@@ -18,6 +18,7 @@ class WeatherService {
 
     /// if response is success ,then return [WeatherModel]
     if (response.statusCode == 200) {
+      print(result.toString());
       return WeatherModel.fromJson(result);
     }else{
       /// throw weather result error

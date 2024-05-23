@@ -32,8 +32,9 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
           children: [
+            _buildWeatherCondition(currentModel),
             _buildLocation(locationModel),
-            _buildWeather(currentModel)
+            _buildWeatherDetails(currentModel),
           ],
         ),
       ),
@@ -76,44 +77,81 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
   }
 
   /// build weather details
-  _buildWeather(CurrentModel? currentModel) {
+  _buildWeatherCondition(CurrentModel? currentModel) {
     if (currentModel == null) {
       return const Text('Weather details not Loaded');
     }
 
     ConditionModel? conditionModel = currentModel.condition;
-    final humidity = currentModel.humidity ?? 0;
-    final windKmp = currentModel.windKph ?? 0.0;
 
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          (conditionModel != null && conditionModel.icon != null)
-              ? SizedBox(
-                  height: 128,
-                  width: 128,
-                  child: Image.network(
-                    'https:${conditionModel.icon}' ?? '',
-                    height: 128,
-                    width: 128,
-                    fit: BoxFit.cover,
-                  ))
-              : const SizedBox(),
-          (conditionModel != null)
-              ? Text(conditionModel.text ?? '',
-                  style: Theme.of(context).textTheme.titleLarge)
-              : const SizedBox(),
-          Text(
-            "${currentModel.tempC ?? 0} °C",
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Now'),
+                    Text(
+                      "${currentModel.tempC ?? 0} °C",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge?.copyWith(
+                        fontSize: 44.0
+                      )
+                    ),
+                    const SizedBox(height: 8,),
+                    (conditionModel != null)
+                        ? Text(conditionModel.text ?? '',
+                        style: Theme.of(context).textTheme.titleLarge)
+                        : const SizedBox(),
+                    const SizedBox(height: 2,),
+                    Text('Feels Like: ${currentModel.feelsLikeC ?? 0} °C'),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: (conditionModel != null && conditionModel.icon != null)
+                    ? Image.network(
+                      'https:${conditionModel.icon}' ?? '',
+                      height: 156,
+                      width: 156,
+                      fit: BoxFit.cover,
+                    )
+                    : const SizedBox(),
+              ),
+            ],
           ),
-          Text('Feels Like: ${currentModel.feelsLikeC ?? 0} °C'),
-          const SizedBox(height: 32,),
+          const SizedBox(height: 16,),
+        ],
+      ),
+    );
+  }
+
+  /// build wind and Humidity details
+  _buildWeatherDetails(CurrentModel? currentModel) {
+    if (currentModel == null) {
+      return const Text('Weather details not Loaded');
+    }
+
+    final humidity = currentModel.humidity ?? 0;
+    final windKmp = currentModel.windKph ?? 0.0;
+    final uv = currentModel.uv ?? 0.0;
+    final pressure = currentModel.pressureMb ?? 0.0;
+
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
@@ -154,6 +192,54 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
                           const Text('Humidity'),
                           const SizedBox(height: 4,),
                           Text("$humidity%",style: Theme.of(context).textTheme.titleSmall,),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Card(
+                  clipBehavior: Clip.hardEdge,
+                  child: InkWell(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          Icon(Icons.wb_sunny,size: 24,color: Theme.of(context).colorScheme.primary),
+                          const SizedBox(height: 8,),
+                          const Text('UV index'),
+                          const SizedBox(height: 4,),
+                          Text("$uv",style: Theme.of(context).textTheme.titleSmall),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Card(
+                  clipBehavior: Clip.hardEdge,
+                  child: InkWell(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          Icon(Icons.wb_cloudy,size: 24,color: Theme.of(context).colorScheme.primary),
+                          const SizedBox(height: 8,),
+                          const Text('Pressure'),
+                          const SizedBox(height: 4,),
+                          Text("$pressure mBar",style: Theme.of(context).textTheme.titleSmall),
                         ],
                       ),
                     ),

@@ -64,6 +64,7 @@ class CurrentModel {
   String? windDir;
   double? tempC;
   double? pressureIn;
+  double? pressureMb;
   double? tempF;
   int? cloud;
   double? windKph;
@@ -83,6 +84,7 @@ class CurrentModel {
       this.windDir,
       this.tempC,
       this.pressureIn,
+      this.pressureMb,
       this.tempF,
       this.cloud,
       this.windKph,
@@ -103,6 +105,7 @@ class CurrentModel {
         windDir: json['wind_dir'],
         tempC: json['temp_c'],
         pressureIn: json['pressure_in'],
+        pressureMb: json['pressure_mb'],
         tempF: json['temp_f'],
         cloud: json['cloud'],
         windKph: json['wind_kph'],

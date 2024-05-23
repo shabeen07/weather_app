@@ -19,6 +19,18 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
   /// form key for validation
   final _formKey = GlobalKey<FormState>();
 
+  /// location suggestions
+  static const locations = [
+    'London',
+    'Bangalore',
+    'Seoul',
+    'Mumbai',
+    'Calicut',
+    'Kolkata',
+    'Kashmir',
+    'New York',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +118,8 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                               : null;
                         },
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 16),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.clear(); // clear text
@@ -116,7 +129,7 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            hintText: 'Enter a location'),
+                            hintText: 'Enter a location name'),
                         onFieldSubmitted: (value) {
                           _validateInput();
                         },
@@ -126,7 +139,39 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                           onPressed: () {
                             _validateInput();
                           },
-                          child: Text('Get Weather'.toUpperCase()))
+                          child: Text('Get Weather'.toUpperCase())),
+                      const SizedBox(height: 32),
+                      Text(
+                        'Location Suggestions',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.outline),
+                        textAlign: TextAlign.start,
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                          runSpacing: 6.0,
+                          children: locations
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 3.0),
+                                    child: ActionChip(
+                                      padding: const EdgeInsets.all(1),
+                                      label: Text(
+                                        e,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium,
+                                      ),
+                                      avatar: null,
+                                      onPressed: () {
+                                        /// fetch weather from suggestions
+                                        context
+                                            .read<LocationSelectionBloc>()
+                                            .add(FetchWeatherEvent(e));
+                                      },
+                                    ),
+                                  ))
+                              .toList()),
                     ],
                   ),
                 ),

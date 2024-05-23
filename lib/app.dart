@@ -7,6 +7,7 @@ import 'package:weather_app/screens/weather_display/weather_display.dart';
 import 'package:weather_app/screens/weather_display/weather_display_bloc.dart';
 import 'package:weather_app/routes/routes.dart';
 import 'package:weather_app/services/weather_service.dart';
+import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
 import 'package:weather_app/theme/theme_cubit.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     /// wrap entire app with Theme Bloc , to listen changes and update theme
     return BlocProvider(
-      create: (context) => ThemeCubit(lightMode),
+      create: (context) => ThemeCubit(darkMode),
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, state) {
           return MaterialApp(
