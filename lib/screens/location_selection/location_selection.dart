@@ -27,7 +27,6 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
     'Mumbai',
     'Calicut',
     'Kolkata',
-    'Kashmir',
     'New York',
   ];
 
@@ -149,11 +148,12 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                       ),
                       const SizedBox(height: 8),
                       Wrap(
-                          runSpacing: 6.0,
+                          runSpacing: 1.0,
+                          spacing: 2.0,
                           children: locations
                               .map((e) => Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 3.0),
+                                        horizontal: 2.0),
                                     child: ActionChip(
                                       padding: const EdgeInsets.all(1),
                                       label: Text(

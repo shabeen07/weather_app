@@ -98,7 +98,7 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Now'),
+                    Text('Now',style: Theme.of(context).textTheme.titleMedium,),
                     Text(
                       "${currentModel.tempC ?? 0} °C",
                       style: Theme.of(context)
@@ -149,9 +149,11 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
+          Text('Current Condition',style: Theme.of(context).textTheme.titleLarge,),
+          const SizedBox(height: 8),
           Row(
             children: [
               Expanded(
