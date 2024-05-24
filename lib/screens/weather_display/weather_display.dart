@@ -152,7 +152,7 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
-          Text('Current Condition',style: Theme.of(context).textTheme.titleLarge,),
+          Text('Current Conditions',style: Theme.of(context).textTheme.titleLarge,),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -202,6 +202,7 @@ class _WeatherDisplayPageState extends State<WeatherDisplayPage> {
               ),
             ],
           ),
+          const SizedBox(height: 4),
           Row(
             children: [
               Expanded(

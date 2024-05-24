@@ -19,17 +19,6 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
   /// form key for validation
   final _formKey = GlobalKey<FormState>();
 
-  /// location suggestions
-  static const locations = [
-    'London',
-    'Bangalore',
-    'Seoul',
-    'Mumbai',
-    'Calicut',
-    'Kolkata',
-    'New York',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,10 +76,10 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                 ),
               );
             }
-            return Center(
-              child: Form(
-                key: _formKey,
-                child: Padding(
+            return Form(
+              key: _formKey,
+              child: Center(
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -119,6 +108,7 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                         decoration: InputDecoration(
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 16),
+                            helperText: 'eg: London, Bangalore, Seoul, Calicut',
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.clear(); // clear text
@@ -140,38 +130,6 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                           },
                           child: Text('Get Weather'.toUpperCase())),
                       const SizedBox(height: 32),
-                      Text(
-                        'Location Suggestions',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.outline),
-                        textAlign: TextAlign.start,
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                          runSpacing: 1.0,
-                          spacing: 2.0,
-                          children: locations
-                              .map((e) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 2.0),
-                                    child: ActionChip(
-                                      padding: const EdgeInsets.all(1),
-                                      label: Text(
-                                        e,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium,
-                                      ),
-                                      avatar: null,
-                                      onPressed: () {
-                                        /// fetch weather from suggestions
-                                        context
-                                            .read<LocationSelectionBloc>()
-                                            .add(FetchWeatherEvent(e));
-                                      },
-                                    ),
-                                  ))
-                              .toList()),
                     ],
                   ),
                 ),
